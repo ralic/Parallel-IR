@@ -1,0 +1,2 @@
+cmake .. -G"Unix Makefiles"  -DCMAKE_INSTALL_PREFIX=/usr && make DESTDIR=/usr/local/Cellar/Parallel-IR all install
+#cmake . 

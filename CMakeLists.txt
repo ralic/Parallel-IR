@@ -49,6 +49,17 @@ project(LLVM
   ${cmake_3_0_LANGUAGES}
   C CXX ASM)
 
+enable_language(ASM_NASM)
+if(CMAKE_ASM_NASM_COMPILER_LOADED)
+  set(CAN_USE_ASSEMBLER TRUE)
+  file(GLOB_RECURSE ENGINE_ASM_FILES "src/engine/*.asm")
+  set(ENGINE_SOURCES ${ENGINE_SOURCES} ${ENGINE_ASM_FILES})
+endif(CMAKE_ASM_NASM_COMPILER_LOADED)
+
+if(NOT CAN_USE_ASSEMBLER)
+   set(ENGINE_SOURCES ${ENGINE_SOURCES} codec_generic.cpp)
+endif(NOT CAN_USE_ASSEMBLER)
+
 if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   message(STATUS "No build type selected, default to Debug")
   set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Build type (default Debug)" FORCE)
